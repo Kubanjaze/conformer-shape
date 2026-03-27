@@ -71,6 +71,16 @@ conformer-shape/
 
 ---
 
+## Key Concepts
+- **ETKDGv3 conformer generation**: `AllChem.EmbedMolecule(mol_h, AllChem.ETKDGv3())` generates low-energy 3D conformers using torsion knowledge from the Cambridge Structural Database
+- **Hydrogen handling**: `Chem.AddHs(mol)` before embedding and `Chem.RemoveHs` after ensures accurate 3D geometry while keeping display clean
+- **O3A alignment**: `AllChem.GetO3A(mobile, ref)` performs Open3D Alignment maximizing pharmacophoric and shape overlap; `.Align()` modifies the mobile conformer in-place
+- **Shape Tanimoto similarity**: `1.0 - rdShapeHelpers.ShapeTanimotoDist(ref, mob)` gives a normalized 0-to-1 shape overlap score after alignment
+- **3D vs 2D comparison**: Plotting shape Tanimoto (3D) against ECFP4 Tanimoto (2D) reveals scaffold hop candidates in the top-left quadrant (3D-similar but 2D-dissimilar)
+- **MMFF force field optimization**: `AllChem.MMFFOptimizeMolecule` minimizes strain energy for drug-like organics after distance geometry embedding
+
+---
+
 ## 3. Input Format
 
 ### `data/compounds.csv`
